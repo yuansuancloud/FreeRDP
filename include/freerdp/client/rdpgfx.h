@@ -96,10 +96,13 @@ typedef UINT (*pcRdpgfxMapWindowForSurface)(RdpgfxClientContext* context, UINT16
                                             UINT64 windowID);
 typedef UINT (*pcRdpgfxUnmapWindowForSurface)(RdpgfxClientContext* context, UINT64 windowID);
 
+typedef UINT (*pcRdpgfxCallbackH264)(RdpgfxClientContext* context, BYTE* data, UINT32 len);
+
 struct _rdpgfx_client_context
 {
 	void* handle;
 	void* custom;
+	void* custom2;
 
 	/* Implementations require locking */
 	pcRdpgfxResetGraphics ResetGraphics;
@@ -145,6 +148,9 @@ struct _rdpgfx_client_context
 	 */
 	pcRdpgfxMapWindowForSurface MapWindowForSurface;
 	pcRdpgfxUnmapWindowForSurface UnmapWindowForSurface;
+
+	// yuansuancloud internal interface
+	pcRdpgfxCallbackH264 CallbackH264;
 
 	CRITICAL_SECTION mux;
 	PROFILER_DEFINE(SurfaceProfiler)

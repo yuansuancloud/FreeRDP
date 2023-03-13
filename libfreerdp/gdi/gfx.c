@@ -603,6 +603,12 @@ static UINT gdi_SurfaceCommand_AVC444(rdpGdi* gdi, RdpgfxClientContext* context,
 	avc2 = &bs->bitstream[1];
 	meta1 = &avc1->meta;
 	meta2 = &avc2->meta;
+
+	status = IFCALLRESULT(CHANNEL_RC_OK, context->CallbackH264, context, avc1->data, avc1->length);
+	
+	if (status != CHANNEL_RC_OK)
+		goto fail;
+
 	rc = avc444_decompress(surface->h264, bs->LC, meta1->regionRects, meta1->numRegionRects,
 	                       avc1->data, avc1->length, meta2->regionRects, meta2->numRegionRects,
 	                       avc2->data, avc2->length, surface->data, surface->format,
