@@ -519,6 +519,11 @@ static UINT gdi_SurfaceCommand_AVC420(rdpGdi* gdi, RdpgfxClientContext* context,
 	                       surface->scanline, surface->width, surface->height, meta->regionRects,
 	                       meta->numRegionRects);
 
+	status = IFCALLRESULT(CHANNEL_RC_OK, context->CallbackH264, context, bs->data, bs->length);
+
+	if (status != CHANNEL_RC_OK)
+		goto fail;
+
 	if (rc < 0)
 	{
 		WLog_WARN(TAG, "avc420_decompress failure: %" PRId32 ", ignoring update.", rc);
