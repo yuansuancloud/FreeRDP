@@ -476,7 +476,7 @@ static UINT gdi_SurfaceCommand_AVC420(rdpGdi* gdi, RdpgfxClientContext* context,
                                       const RDPGFX_SURFACE_COMMAND* cmd)
 {
 #ifdef WITH_GFX_H264
-	INT32 rc;
+	// INT32 rc;
 	UINT status = CHANNEL_RC_OK;
 	UINT32 i;
 	gdiGfxSurface* surface;
@@ -514,21 +514,21 @@ static UINT gdi_SurfaceCommand_AVC420(rdpGdi* gdi, RdpgfxClientContext* context,
 	if (!bs)
 		return ERROR_INTERNAL_ERROR;
 
-	meta = &(bs->meta);
-	rc = avc420_decompress(surface->h264, bs->data, bs->length, surface->data, surface->format,
-	                       surface->scanline, surface->width, surface->height, meta->regionRects,
-	                       meta->numRegionRects);
-
 	status = IFCALLRESULT(CHANNEL_RC_OK, context->CallbackH264, context, bs->data, bs->length);
 
 	if (status != CHANNEL_RC_OK)
 		goto fail;
 
-	if (rc < 0)
-	{
-		WLog_WARN(TAG, "avc420_decompress failure: %" PRId32 ", ignoring update.", rc);
-		return CHANNEL_RC_OK;
-	}
+	meta = &(bs->meta);
+	// rc = avc420_decompress(surface->h264, bs->data, bs->length, surface->data, surface->format,
+	//                        surface->scanline, surface->width, surface->height, meta->regionRects,
+	//                        meta->numRegionRects);
+
+	// if (rc < 0)
+	// {
+	// 	WLog_WARN(TAG, "avc420_decompress failure: %" PRId32 ", ignoring update.", rc);
+	// 	return CHANNEL_RC_OK;
+	// }
 
 	for (i = 0; i < meta->numRegionRects; i++)
 	{
@@ -564,7 +564,7 @@ static UINT gdi_SurfaceCommand_AVC444(rdpGdi* gdi, RdpgfxClientContext* context,
                                       const RDPGFX_SURFACE_COMMAND* cmd)
 {
 #ifdef WITH_GFX_H264
-	INT32 rc;
+	// INT32 rc;
 	UINT status = CHANNEL_RC_OK;
 	UINT32 i;
 	gdiGfxSurface* surface;
@@ -614,16 +614,16 @@ static UINT gdi_SurfaceCommand_AVC444(rdpGdi* gdi, RdpgfxClientContext* context,
 	if (status != CHANNEL_RC_OK)
 		goto fail;
 
-	rc = avc444_decompress(surface->h264, bs->LC, meta1->regionRects, meta1->numRegionRects,
-	                       avc1->data, avc1->length, meta2->regionRects, meta2->numRegionRects,
-	                       avc2->data, avc2->length, surface->data, surface->format,
-	                       surface->scanline, surface->width, surface->height, cmd->codecId);
+	// rc = avc444_decompress(surface->h264, bs->LC, meta1->regionRects, meta1->numRegionRects,
+	//                        avc1->data, avc1->length, meta2->regionRects, meta2->numRegionRects,
+	//                        avc2->data, avc2->length, surface->data, surface->format,
+	//                        surface->scanline, surface->width, surface->height, cmd->codecId);
 
-	if (rc < 0)
-	{
-		WLog_WARN(TAG, "avc444_decompress failure: %" PRIu32 ", ignoring update.", status);
-		return CHANNEL_RC_OK;
-	}
+	// if (rc < 0)
+	// {
+	// 	WLog_WARN(TAG, "avc444_decompress failure: %" PRIu32 ", ignoring update.", status);
+	// 	return CHANNEL_RC_OK;
+	// }
 
 	for (i = 0; i < meta1->numRegionRects; i++)
 	{
