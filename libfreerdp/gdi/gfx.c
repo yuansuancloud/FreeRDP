@@ -170,13 +170,13 @@ static UINT gdi_OutputUpdate(rdpGdi* gdi, gdiGfxSurface* surface)
 		const UINT32 dwidth = MIN((UINT32)(swidth * sx), (UINT32)gdi->width - nXDst);
 		const UINT32 dheight = MIN((UINT32)(sheight * sy), (UINT32)gdi->height - nYDst);
 
-		if (!freerdp_image_scale(gdi->primary_buffer, gdi->dstFormat, gdi->stride, nXDst, nYDst,
-		                         dwidth, dheight, surface->data, surface->format, surface->scanline,
-		                         nXSrc, nYSrc, swidth, sheight))
-		{
-			rc = CHANNEL_RC_NULL_DATA;
-			goto fail;
-		}
+		// if (!freerdp_image_scale(gdi->primary_buffer, gdi->dstFormat, gdi->stride, nXDst, nYDst,
+		//                          dwidth, dheight, surface->data, surface->format, surface->scanline,
+		//                          nXSrc, nYSrc, swidth, sheight))
+		// {
+		// 	rc = CHANNEL_RC_NULL_DATA;
+		// 	goto fail;
+		// }
 
 		gdi_InvalidateRegion(gdi->primary->hdc, (INT32)nXDst, (INT32)nYDst, (INT32)dwidth,
 		                     (INT32)dheight);
